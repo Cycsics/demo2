@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author WTZ
  *		
  */
-public class ReadDate {
+public class ReadData {
 
 	
 	/** 总行数 */
@@ -31,7 +31,7 @@ public class ReadDate {
     /** 错误信息 */
     private String errorInfo;
     /** 构造方法 */
-    public ReadDate() {
+    public ReadData() {
     }
     
 
@@ -172,7 +172,7 @@ public class ReadDate {
         return dataLst;
     }
     public static void main(String[] args) throws Exception {
-    	ReadDate poi = new ReadDate();
+    	ReadData poi = new ReadData();
     	/**数据存储**/
     	double[][] data = new double[50][50];
     	  /**声明数据库对象**/
