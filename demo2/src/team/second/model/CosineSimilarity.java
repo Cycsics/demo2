@@ -6,15 +6,36 @@ import java.util.Set;
 
 import team.second.service.*;
 
-
+/**
+ * 
+ * @author 12771
+ * 传入二维数组，余弦相似度算法计算结果以二维数组返回
+ */
 
 public class CosineSimilarity implements AlgorithmService {
 	Map<Double,int[]> vectorMap = new HashMap<Double,int[]>();
+		
+	public CosineSimilarity() {}
 	
-	int[] tempArray = null;
+	/**求余弦相似度值**/
+	@Override
+	public double[][] ConSimilar(double[][] data) {
+		double result = 0;
+		double[][] ans = null;
+		for(int i = 0; i < data.length; i++) {
+			for(int j = 0; j < data.length; j++) {
+				DataClean(data[i],data[j]);
+				result = pointMulti(vectorMap) / sqrtMulti(vectorMap);
+				ans[i][j] = result; 
+			}
+		}
+		return ans;
+	}
 	
-	public CosineSimilarity(double[] data1,double[] data2) {
+	/**数据清洗*/
+	public void DataClean(double[] data1, double[] data2) {
 		vectorMap.clear();
+		int[] tempArray = null;
 		for(double data : data1) {
 			if(vectorMap.containsKey(data)) {
 				vectorMap.get(data)[0]++;
@@ -38,24 +59,15 @@ public class CosineSimilarity implements AlgorithmService {
 		}
 	}
 	
-	
-	
-	@Override
-	public double sim() {
-		double result = 0;
-		result = pointMulti(vectorMap) / sqrtMulti(vectorMap);
-		return result;
-	}
-	
-	@Override
-	public double  sqrtMulti(Map<Double,int[]>paramMap) {
+	/**分母值   求开方和*/
+	public double  sqrtMulti(Map<Double, int[]>paramMap) {
 		double result = 0;  
         result = squares(paramMap);  
         result = Math.sqrt(result);  
         return result;  
 	}
 		
-	@Override
+	 /**分子值  求点乘*/
 	public double pointMulti(Map<Double, int[]>paramMap) {
 		double result = 0;
 		Set<Double>keySet = paramMap.keySet();
@@ -66,7 +78,7 @@ public class CosineSimilarity implements AlgorithmService {
 		return result;
 	}
 	
-	@Override
+	/**求平方和*/
 	public double squares(Map<Double,int[]>paramMap) {
 		double result1 = 0;
 		double result2 = 0;
@@ -78,15 +90,5 @@ public class CosineSimilarity implements AlgorithmService {
 		}
 		return result1*result2;
 	}
-	public static void main(String[] args) {
-		Constant constant = new Constant();
-		//double[][] dataBase = constant.getDataBase();
-		double[] data1 = {1.78,1.53,1.72,1.47,3.15,1.66,3.02,2.77,0.0,0.0,0.0,0.0,0.0,4.8,0.0,0.0,2.15,1.9,1.98,1.04,1.3,1.87,0.96,2.54,2.29,0.0,2.81,2.56,2.58,0.0,1.14,0.99,0.99,1.36,2.21,0.0};
-		double[] data2 = {1.78,1.53,1.72,1.47,3.15,1.43,1.89,1.64,3.69,0.0,0.0,0.0,0.0,4.8,0.0,0.0,2.15,1.9,1.98,1.04,1.3,1.87,0.96,2.54,2.29,0.0,2.81,2.56,2.58,0.0,1.14,0.99,0.99,1.36,2.21,0.0};
-		CosineSimilarity alogorithm = new CosineSimilarity(data1,data2);
-		System.out.println(alogorithm.sim());
-	}
-
-
 	
 }
