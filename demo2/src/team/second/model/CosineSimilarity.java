@@ -11,9 +11,54 @@ import team.second.service.*;
 public class CosineSimilarity implements AlgorithmService {
 	Map<Double,int[]> vectorMap = new HashMap<Double,int[]>();
 	
-	int[] tempArray = null;
+
 	
-	public CosineSimilarity(double[] data1,double[] data2) {
+	public CosineSimilarity() {}
+	
+	/*
+	 * @param: double[][]
+	 * @return double[][]
+	 * 
+	 * **/
+	@Override
+	public double[][] cosineSimilarity(double[][] data) {
+		double[][] result = null;
+		double[][] dataTemp = null;
+		dataTemp = trans(data);
+		for(int i = 0; i < dataTemp.length; i++) {
+			for(int j = 0; j < dataTemp.length; j++) {
+				 dataClear(dataTemp[i],dataTemp[j]);
+				 result[i][j] = pointMulti(vectorMap) / sqrtMulti(vectorMap);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param data
+	 * @return result
+	 * 将存储在二维数组的数据行列变换
+	 */
+	public double[][] trans(double[][] data) {
+		double[][] result = null;
+		for(int i = 0; i < data[i].length; i++) {
+			for(int j = 0; j < data.length; j++) {
+				result[i][j] = data[j][i];
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param data1
+	 * @param data2
+	 * 进行数据清洗，给相似度运算做前期准备工作
+	 */
+	public void dataClear(double[] data1,double[] data2) {
+		int[] tempArray = null;
 		vectorMap.clear();
 		for(double data : data1) {
 			if(vectorMap.containsKey(data)) {
@@ -38,16 +83,11 @@ public class CosineSimilarity implements AlgorithmService {
 		}
 	}
 	
-	
-	
-	@Override
-	public double sim() {
-		double result = 0;
-		result = pointMulti(vectorMap) / sqrtMulti(vectorMap);
-		return result;
-	}
-	
-	@Override
+	/**
+	 * 平方开方
+	 * @param paramMap
+	 * @return
+	 */
 	public double  sqrtMulti(Map<Double,int[]>paramMap) {
 		double result = 0;  
         result = squares(paramMap);  
@@ -55,7 +95,11 @@ public class CosineSimilarity implements AlgorithmService {
         return result;  
 	}
 		
-	@Override
+	/***
+	 * 点乘累加
+	 * @param paramMap
+	 * @return
+	 */
 	public double pointMulti(Map<Double, int[]>paramMap) {
 		double result = 0;
 		Set<Double>keySet = paramMap.keySet();
@@ -66,7 +110,11 @@ public class CosineSimilarity implements AlgorithmService {
 		return result;
 	}
 	
-	@Override
+	/***
+	 * 平方累加
+	 * @param paramMap
+	 * @return
+	 */
 	public double squares(Map<Double,int[]>paramMap) {
 		double result1 = 0;
 		double result2 = 0;
@@ -78,15 +126,4 @@ public class CosineSimilarity implements AlgorithmService {
 		}
 		return result1*result2;
 	}
-	public static void main(String[] args) {
-		Constant constant = new Constant();
-		//double[][] dataBase = constant.getDataBase();
-		double[] data1 = {1.78,1.53,1.72,1.47,3.15,1.66,3.02,2.77,0.0,0.0,0.0,0.0,0.0,4.8,0.0,0.0,2.15,1.9,1.98,1.04,1.3,1.87,0.96,2.54,2.29,0.0,2.81,2.56,2.58,0.0,1.14,0.99,0.99,1.36,2.21,0.0};
-		double[] data2 = {1.78,1.53,1.72,1.47,3.15,1.43,1.89,1.64,3.69,0.0,0.0,0.0,0.0,4.8,0.0,0.0,2.15,1.9,1.98,1.04,1.3,1.87,0.96,2.54,2.29,0.0,2.81,2.56,2.58,0.0,1.14,0.99,0.99,1.36,2.21,0.0};
-		CosineSimilarity alogorithm = new CosineSimilarity(data1,data2);
-		System.out.println(alogorithm.sim());
-	}
-
-
-	
 }
