@@ -6,6 +6,7 @@ public class Constant {
 	public void setDataBase(double[][] dataBase) {
 		this.dataBase = dataBase;
 	}	
+	
 	public double[][] getDataBase() {
 		return dataBase;
 	}

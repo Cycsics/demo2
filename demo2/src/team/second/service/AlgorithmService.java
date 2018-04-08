@@ -6,5 +6,5 @@ public interface AlgorithmService {
 	
 	/**求余弦相似度**/
 	double[][] cosineSimilarity(double[][] data);
-	 
+		
 }

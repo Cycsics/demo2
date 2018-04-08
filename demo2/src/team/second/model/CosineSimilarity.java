@@ -11,8 +11,6 @@ import team.second.service.*;
 public class CosineSimilarity implements AlgorithmService {
 	Map<Double,int[]> vectorMap = new HashMap<Double,int[]>();
 	
-
-	
 	public CosineSimilarity() {}
 	
 	/*
@@ -47,7 +45,6 @@ public class CosineSimilarity implements AlgorithmService {
 				result[i][j] = data[j][i];
 			}
 		}
-		
 		return result;
 	}
 	

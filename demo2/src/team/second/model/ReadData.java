@@ -31,16 +31,17 @@ public class ReadData {
     /** 错误信息 */
     private String errorInfo;
     /** 构造方法 */
-    public ReadData() {
-    }
+    public ReadData() {}
     
 
     public int getTotalRows() {
         return totalRows;
     }
+    
     public int getTotalCells() {
         return totalCells;
     }
+    
     public String getErrorInfo() {
         return errorInfo;
     }
@@ -116,7 +117,6 @@ public class ReadData {
         return dataLst;
     }
     
-
     private List<List<String>> read(Workbook wb) {
         List<List<String>> dataLst = new ArrayList<List<String>>();
         /** 得到第一个shell */
@@ -171,40 +171,61 @@ public class ReadData {
         }
         return dataLst;
     }
-    public static void main(String[] args) throws Exception {
-    	ReadData poi = new ReadData();
+    
+    public double[][] process(String path) {
     	/**数据存储**/
     	double[][] data = new double[50][50];
-    	  /**声明数据库对象**/
-        Constant dataBase = new Constant();
-        // List<List<String>> list = poi.read("d:/aaa.xls");
-        List<List<String>> list = poi.read("C:\\Users\\Administrator\\Desktop\\暂存\\02 相似度问题\\lz01.xls");
-        if (list != null) {
+    	List<List<String>> list = this.read(path);    
+    	if (list != null) {
             for (int i = 0; i < list.size(); i++) {
-                System.out.print("第" + (i) + "行");
                 List<String> cellList = list.get(i);
                 for (int j = 0; j < cellList.size(); j++) {
-                    // System.out.print("    第" + (j + 1) + "列值：");
-                    System.out.print("    " + cellList.get(j));
-                    String str = cellList.get(j);
                     if(i != 0 && i != 36&& j != 0) {
+                    	String str = cellList.get(j);
                     	double cny =Double.parseDouble(str); 
                         data[i-1][j-1] = cny;
                     }
                 }
-                System.out.println();
             }
-
         }
-        for(int i = 0; i < 2; i++) {
-        	for(int j = 0; j < 36; j++) {
-        		System.out.print(data[j][i] +",");
-        	}
-        	System.out.println();
-        }
-        dataBase.setDataBase(data);
-      
+    	 return data;
     }
+  
+   
+//    public static void main(String[] args) throws Exception {
+//    	ReadData poi = new ReadData();
+//    	/**数据存储**/
+//    	double[][] data = new double[50][50];
+//    	  /**声明数据库对象**/
+//        Constant dataBase = new Constant();
+//        // List<List<String>> list = poi.read("d:/aaa.xls");
+//        List<List<String>> list = poi.read("C:\\Users\\Administrator\\Desktop\\暂存\\02 相似度问题\\lz01.xls");
+//        if (list != null) {
+//            for (int i = 0; i < list.size(); i++) {
+//                System.out.print("第" + (i) + "行");
+//                List<String> cellList = list.get(i);
+//                for (int j = 0; j < cellList.size(); j++) {
+//                    // System.out.print("    第" + (j + 1) + "列值：");
+//                    System.out.print("    " + cellList.get(j));
+//                    String str = cellList.get(j);
+//                    if(i != 0 && i != 36&& j != 0) {
+//                    	double cny =Double.parseDouble(str); 
+//                        data[i-1][j-1] = cny;
+//                    }
+//                }
+//                System.out.println();
+//            }
+//
+//        }
+//        for(int i = 0; i < 2; i++) {
+//        	for(int j = 0; j < 36; j++) {
+//        		System.out.print(data[j][i] +",");
+//        	}
+//        	System.out.println();
+//        }
+//        dataBase.setDataBase(data);
+//    }
+
 	
 }
 
